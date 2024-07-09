@@ -1,0 +1,368 @@
+
+'''
+Just a bunch of junk code I couldn't bring myself to delete
+
+'''
+
+
+
+#    pn2 = 'ROOT_Min1_Max6'
+#    Par1_pn2 = 'ROOT_Min1'
+#    pfix = pn2[:pn2.rfind('_')+1]
+#    siblings_pn2 = filter(lambda s:s.startswith( pfix ),  peot_name)
+#
+#    in1=df_tree[Par1_pn2]
+#
+#    df_lyr2=df_tree[didx_name[2]]
+#    pn2_opt= df_lyr2[pn2] >= df_lyr2.max()
+#    df_pn2 = df_tree[pn2]
+#
+#
+#    max2=df_tree[didx_name[2]].max(axis=1)
+#    nowhere_opt_pn2=np.sum( df_tree[pn2]>=max2 ) == 0 #True
+#
+#    sibmax2 = df_tree[ siblings_pn2 ].max(axis=1)
+#    pn2_opt = df_tree[pn2] >= sibmax2#  Stil! not opt anywhere. Maybe okay
+
+#    headNO0=NamesOpts[0].head(20)
+#    DF0=df_tree[ headNO0.unique() ].head(20)
+#    headNO1=NamesOpts[1].head(20)
+#    DF1=df_tree[ headNO1.unique() ].head(20)
+#    headNO2=NamesOpts[2].head(20)
+#    DF2=df_tree[ headNO2.unique() ].head(20)
+
+
+#    NO0=NamesOpts[0]
+#    NO1=NamesOpts[1]
+#    NO2=NamesOpts[2]
+
+
+
+    #pn2 is not opt anywhere..!
+        #neet to calc where it is opt.. !Amoung its brothers from same Parent!
+        #   or perhaps where opt amoung nodes less opt than parent
+
+
+#perlayer, per node in previus layer (those that were opt)
+
+#node_opt=pd.DataFrame() #key=node, values=T/F
+#dfs_opts=[]#list of dfs l=0,1,2.., keys=None, values= didx_names[l] where opt
+#       (^^should help check everywhere has somewhere opt)
+#NodesOpts
+#NOl<-['ROOT'] #active_parents
+###Loop
+#for lyr
+#   lyr_op
+#   for par in NOl.unique()
+#       children = filter( startswith, names[lyr] )
+#       childs_opt = NodeArgOpt(  df_tree[children]   )#idxmax/min
+#       for cld in childs_opt.unique()
+#           #Those inputs where cld is opt among siblings and par is opt
+#           node_opt[cld] = np.logical_and( node_opt[par] , node_opt[cld] )
+    #dfs_ops=[]
+    #dfs_ops=[ NodeArgOp( df_tree[didx_name[0]]) ]#single col df of all 'ROOT'
+    #named_paths = {nm:path2node(nm,didx_name) for nm in peot_name}
+
+#childs = filter(lambda c:c.startswith(rent),lyr_nodes)
+
+#-------------------------------------------------
+    #node_op=pd.DataFrame() #key=node, values=T/F
+    #        for cld in childs:
+    #            node_opt[cld] = c_optimal==cld
+
+    #db
+#    dct_fam={rent:NodeArgOp(df_tree[next_descend(rent)]) for rent in nodes_prev}
+#    df_fam=pd.DataFrame.from_dict( dct_fam )
+        #node_opt = pd.DataFrame()
+#one-line trick
+#dct_fam={rent:NodeArgOp(df_tree[next_descend(rent,didx_name)]) \
+#         for rent in nodes_prev}
+#df_fam=pd.DataFrame.from_dict( dct_fam )
+
+
+
+
+
+
+
+    #for key in peot_name:
+    #    pos_X = X[ node_pos[key]]
+    #    neg_X = X[~node_pos[key]]
+    #    pos_Y = Y[ node_pos[key]]
+    #    neg_Y = Y[~node_pos[key]]
+
+
+    #nopt1=node_opt[didx_name[1]]
+    #nopt1.sum(axis='columns')#should be all ones
+
+
+
+
+
+#        if len(neg_X)>0:
+#            neg_fig,neg_ax = plt.subplots(figsize=figsz)
+#            neg_fname=os.path.join(vis_folder,
+#               id_str+'-'+key+'neg_curves'+str(len(neg_X))+descrip+ext)
+#            alpha_ecg( neg_X, neg_fig, neg_ax,alP=alP, linewidth=lnw)
+#            #neg_fig.savefig(neg_fname,dpi=dpi)
+#            neg_fig.savefig(neg_fname,**kw_savefig)
+#            plt.close(neg_fig)
+
+
+
+
+
+
+#        for rent in nodes_prev:#parent nodes
+#            childs = filter(lambda c:c.startswith(rent),lyr_nodes)
+#            c_optimal = NodeArgOp( df_tree[childs] )
+#
+#            dfs_ops.append( c_optimal )
+#            nodes_prev = pd.unique( c_optimal )
+
+
+
+
+
+#    for lyr_names in nodes_by_layer[]:
+#        lyr_op = swap_minmax( init_op )
+#        NodeArgOp = Op2ArgOp(lyr_op)
+#        dfs_ops.append( NodeArgOp( df_tree[didx_name[0]]) )
+#        nodes_prev = pd.unique( dfs_ops[-1] )
+
+
+
+##def find_opt_nodes( df_tree, nodes_by_layer, init_op='Min' ):
+##    '''
+##    df_tree          DataFrame with node cols and evals on row samples
+##    nodes_by_layer   list of lists of nodes in a layer (didx_name elsewhere)
+##    init_op          Min/Max used to combine first branches to get ROOT
+##    '''
+##    NamesOpts=[]#per layer, which node is opt, per sample
+##    lyr_op = str(init_op)# ex, init_op=Min means Root=Min(nodes at depth1)
+##    for lyr_names in nodes_by_layer:
+##        lyr_op = swap_minmax( lyr_op )#op=Max for first iter, ROOT (no consequence)
+##        df_lyr = df_tree[lyr_names]#subset of columns
+##
+##        print('OP;',lyr_op,':\n',lyr_names[:5])
+##
+##        if lyr_op == 'Min':
+##            NodeArgOpt = lambda df: df.idxmin(axis='columns')
+##            print('lyr_op is Min')
+##        elif lyr_op == 'Max':
+##            NodeArgOpt = lambda df: df.idxmax(axis='columns')
+##            print('lyr_op is Max')
+##        else:
+##            raise ValueError('Expected Max or Min but got ', lyr_op )
+##
+##        #for each row (data point)
+##        #   which column/node actually achieves lyr_op-timal (min/max)
+##        NamesOpts.append( NodeArgOpt( df_lyr ) )
+##    return NamesOpts
+
+
+
+#    NamesOpts=[]#per layer, which node is opt, per sample
+#    lyr_op = str(init_op)# ex, init_op=Min means Root=Min(nodes at depth1)
+#    for lyr_names in nodes_by_layer:
+#        lyr_op = swap_minmax( lyr_op )#op=Max for first iter, ROOT (no consequence)
+#        df_lyr = df_tree[lyr_names]#subset of columns
+
+
+    ###idxmax/idxmin doesnt return every opt column, only first one
+
+
+    #for each node  --  node_pos,node_opt 
+        #node_opt->which to plot
+        #node_pos->plot as pos or neg
+
+#    #pn=pn2
+#    node_opt=pd.DataFrame()
+#    nde_s=[]
+#    for pn in peot_name:
+#        lyrwise_pathopt=[]
+#        node_opt[pn]=np_trues_like(df_tree[pn])
+#        for lyr,nde in enumerate( named_paths[pn] ):
+#        #for lyr,nde in enumerate(path2node(pn,didx_name)):
+#            NamesOpt = NamesOpts[lyr]
+#            lyrwise_nodeopt = NamesOpt==nde
+#            node_opt[pn] = np.logical_and( lyrwise_nodeopt , node_opt[pn] )
+#            lyrwise_pathopt.append(lyrwise_nodeopt)
+#
+#
+#
+#
+#    nopt0=node_opt[didx_name[0]]
+#    nopt1=node_opt[didx_name[1]]#Is fine .sum(axis=1) gives ones
+#    nopt2=node_opt[didx_name[2]]
+
+
+    #nn1=didx_name[1][4]#
+
+
+
+
+
+
+
+#def find_opt_nodes( df_tree, nodes_by_layer, init_op='Min' ):
+#    '''
+#    df_tree          DataFrame with node cols and evals on row samples
+#    nodes_by_layer   list of lists of nodes in a layer (didx_name elsewhere)
+#    init_op          Min/Max used to combine first branches to get ROOT
+#    '''
+#    NamesOpts=[]#per layer, which node is opt, per sample
+#    lyr_op = str(init_op)# ex, init_op=Min means Root=Min(nodes at depth1)
+#    for lyr_names in nodes_by_layer:
+#        lyr_op = swap_minmax( lyr_op )#op=Max for first iter, ROOT (no consequence)
+#        df_lyr = df_tree[lyr_names]#subset of columns
+#
+#        print('OP;',lyr_op,':\n',lyr_names[:5])
+#
+#        if lyr_op == 'Min':
+#            NodeArgOpt = lambda df: df.idxmin(axis='columns')
+#            print('lyr_op is Min')
+#        elif lyr_op == 'Max':
+#            NodeArgOpt = lambda df: df.idxmax(axis='columns')
+#            print('lyr_op is Max')
+#        else:
+#            raise ValueError('Expected Max or Min but got ', lyr_op )
+#
+#        #for each row (data point)
+#        #   which column/node actually achieves lyr_op-timal (min/max)
+#        NamesOpts.append( NodeArgOpt( df_lyr ) )
+#    return NamesOpts
+
+#def find_opt_nodes( df_tree, nodes_by_layer, init_op='Min' ):
+#    '''
+#    df_tree          DataFrame with node cols and evals on row samples
+#    nodes_by_layer   list of lists of nodes in a layer (didx_name elsewhere)
+#    init_op          Min/Max used to combine first branches to get ROOT
+#    '''
+#    NamesOpts=[]#per layer, which node is opt, per sample
+#    lyr_op = str(init_op)# ex, init_op=Min means Root=Min(nodes at depth1)
+#    for lyr_names in nodes_by_layer:
+#        lyr_op = swap_minmax( lyr_op )#op=Max for first iter, ROOT (no consequence)
+#        df_lyr = df_tree[lyr_names]#subset of columns
+#
+#        print('OP;',lyr_op,':\n',lyr_names[:5])
+#
+#        if lyr_op == 'Min':
+#            NodeArgOpt = lambda df: df.idxmin(axis='columns')
+#            print('lyr_op is Min')
+#        elif lyr_op == 'Max':
+#            NodeArgOpt = lambda df: df.idxmax(axis='columns')
+#            print('lyr_op is Max')
+#        else:
+#            raise ValueError('Expected Max or Min but got ', lyr_op )
+#
+#        #for each row (data point)
+#        #   which column/node actually achieves lyr_op-timal (min/max)
+#        NamesOpts.append( NodeArgOpt( df_lyr ) )
+#    return NamesOpts
+
+
+
+
+###  ----- vis_ecg.py scratch  ----- ###
+
+#    ####################### debug block
+#        X=pos_X
+#        fig=pos_fig,
+#        ax=pos_ax
+#        linewidth=lnw
+#        alP=40.
+#        kwargs={}
+#        ###################
+#        if ax is None:
+#            fig,ax=plt.subplots()
+#            plt_latex_settings()#good enough
+#
+#        time=np.linspace(-0.2,0.4,150)
+#        zero_time = np.where(time>=0.)[0][0]# 0~time[50]
+#
+#        plt_X = X / X[:,zero_time:zero_time+1]#peak normalize
+#
+#        alpha=min(float(alP),len(X))/(1.+float(len(X)))
+#        medline=np.median( plt_X ,axis=0)
+#        ax.plot(time,plt_X.T,c='m',alpha=alpha,linewidth=linewidth,**kwargs)
+#        ax.plot(time,medline  ,c='b',linewidth=3.5)
+#        ax.grid(True)
+#        ax.set_xlabel('Time (s)')
+#        ax.set_yticklabels([])
+#        ax.set_ylim([-1.,1.])
+#        ax.set_xlim([time.min(),time.max()])
+#    #    alpha_ecg( pos_X, pos_fig, pos_ax, alP=40., linewidth=lnw)
+#    #######################
+#        pos_fig.savefig(pos_fname)
+#
+#        neg_fig,neg_ax = plt.subplots(figsize=(10,6))
+#        neg_fname=os.path.join(vis_folder,key+'neg_curves'+str(len(neg_X))+descrip+ext)
+#        #neg_fname=os.path.join(vis_folder,key+'neg_'+descrip + ext)
+#        alpha_ecg( neg_X, neg_fig, neg_ax,alP=40., linewidth=lnw)
+#        neg_fig.savefig(neg_fname)
+
+
+
+    #def alpha_ecg( X ,fig=None,ax=None,alpha=0.01,linewidth=.5,**kwargs)
+    #savenode( fig, nodename, base_folder, descrip='',ext='.png',**kwargs)
+        #dpi
+
+
+
+
+vis_ecg old plot
+
+
+
+
+
+    pos_X = resample_m( pos_X )
+    neg_X = resample_m( neg_X )
+    pos_info= id_str+'-'+key+'pos_curves'+str(pos_L)+descrip
+    neg_info= id_str+'-'+key+'neg_curves'+str(neg_L)+descrip
+
+    if len(pos_X)>0:
+        pos_fname=os.path.join(vis_folder,pos_info)
+        pos_fig,pos_ax=alpha_ecg( pos_X, **kw_plotfig)
+        pos_fig.savefig(pos_fname+ext,**kw_savefig)
+        plt.close(pos_fig)
+
+    if len(neg_X)>0:
+        neg_fname=os.path.join(vis_folder,neg_info)
+        neg_fig,neg_ax=alpha_ecg( neg_X, **kw_plotfig)
+        neg_fig.savefig(neg_fname+ext,**kw_savefig)
+        plt.close(neg_fig)
+
+
+
+    for key in peot_name:
+        func = node2func( key )
+
+
+
+
+
+
+
+
+    ##      plot  (pos_X,neg_X)     ##
+        if len(pos_X)>0:
+            pos_fig,pos_ax = plt.subplots(figsize=figsz)
+            pos_fname=os.path.join(vis_folder,
+               id_str+'-'+key+'pos_curves'+str(len(pos_X))+descrip+ext)
+            alpha_ecg( pos_X, pos_fig, pos_ax,alP=alP, linewidth=lnw)
+            #pos_fig.savefig(pos_fname,dpi=dpi)
+            pos_fig.savefig(pos_fname,**kw_savefig)
+            plt.close(pos_fig)
+
+        if len(neg_X)>0:
+            neg_fig,neg_ax = plt.subplots(figsize=figsz)
+            neg_fname=os.path.join(vis_folder,
+               id_str+'-'+key+'neg_curves'+str(len(neg_X))+descrip+ext)
+            alpha_ecg( neg_X, neg_fig, neg_ax,alP=alP, linewidth=lnw)
+            #neg_fig.savefig(neg_fname,dpi=dpi)
+            neg_fig.savefig(neg_fname,**kw_savefig)
+            plt.close(neg_fig)
+
+

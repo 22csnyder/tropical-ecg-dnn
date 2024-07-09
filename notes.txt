@@ -1,0 +1,109 @@
+###Random stuff I wanted to reference but not write down###
+
+    #note to self, Im not sure this works in general
+    #print('WARNING: uSING SIG=SIG(X20) DIRECTLY  .!')
+    #X20_sigl=dc_states(E20)
+    #Sig20,Sig020=sigl2Sig(X20_sigl)
+    #print('Warning again')
+    #Sig=Sig20
+
+
+
+
+You can optionally enable serialization on your layers
+
+If you need more flexibility when deserializing the layer from its config, you can also override the from_config class method. This is the base implementation of from_config:
+
+def from_config(cls, config):
+  return cls(**config)
+
+
+layer = Linear(64)
+config = layer.get_config()
+print(config)
+new_layer = Linear.from_config(config)
+
+
+###################################
+#Model Saving
+###################################
+#https://www.tensorflow.org/guide/keras/save_and_serialize
+## Save JSON config to disk
+#json_config = model.to_json()
+#with open('model_config.json', 'w') as json_file:
+#    json_file.write(json_config)
+## Save weights to disk
+#model.save_weights('path_to_my_weights.h5')
+#
+## Reload the model from the 2 files we saved
+#with open('model_config.json') as json_file:
+#    json_config = json_file.read()
+#new_model = keras.models.model_from_json(json_config)
+#new_model.load_weights('path_to_my_weights.h5')
+#
+## Check that the state is preserved
+#new_predictions = new_model.predict(x_test)
+#np.testing.assert_allclose(predictions, new_predictions, rtol=1e-6, atol=1e-6)
+#
+## Note that the optimizer was not preserved.
+
+
+#
+#
+#tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir=logdir)
+
+
+
+
+    ##########################
+#Tricks, bookmarks
+
+#    #cool print trick
+#    with np.printoptions(threshold=np.inf):
+#        #default thresh will summaries with ... if nelem>1000
+#        print(sigHL)
+# with np.printoptions(linewidth=400):
+# suppress : bool, optional
+#    If True, always print floating point numbers using fixed point notation,
+#       with np.printoptions(suppress=True):
+
+#eps = np.finfo(float).eps
+
+
+
+# https://docs.scipy.org/doc/numpy/reference/generated/numpy.set_printoptions.html
+
+#tf.math.count_nonzero( tf.greater(c,0.) )
+#np.testing.assert_allclose(predictions, new_predictions, rtol=1e-6, atol=1e-6)
+
+#   model.save('path_to_saved_model', save_format='tf')
+# Note that the optimizer state is preserved as well:
+# you can resume training where you left off.
+    ##########################
+
+
+
+
+########################
+np.unique  for states
+########################
+
+    Sig,Inv,Cnts=np.unique(fl_paths_hidden,axis=0,
+                           #return_index=True,
+                           return_inverse=True,
+                           return_counts=True)
+
+    IdxPlus =Inv[np.where(fl_paths_pred==1)[0]]
+    IdxMinus=Inv[np.where(fl_paths_pred==0)[0]]
+    Idx0=np.intersect1d(IdxPlus,IdxMinus)
+
+
+
+
+
+    #quick db
+    #tree_model = keras.Model(inputs=encode_input, outputs=tf_Tree[ROOT])
+    #T20=tree_model(E20)
+    #quick db
+    #tree_model = keras.Model(inputs=encode_input, outputs=tf_Tree[ROOT])
+    #T20=tree_model(E20)
